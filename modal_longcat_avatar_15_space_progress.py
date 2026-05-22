@@ -76,14 +76,25 @@ def run_space_progress_avatar(
         if not p.exists():
             raise FileNotFoundError(str(p))
 
-    print("=== Ensuring LongCat-Video-Avatar-1.5 weights ===", flush=True)
+    print("=== Ensuring LongCat base + Avatar-1.5 weights ===", flush=True)
+    # The official avatar demo loads shared tokenizer/text/VAE components from
+    # os.path.join(checkpoint_dir, '..', 'LongCat-Video'), so both sibling dirs
+    # must exist in /models.
+    base_model_dir = Path("/models/LongCat-Video")
+    if not (base_model_dir / "tokenizer").exists():
+        snapshot_download(
+            "meituan-longcat/LongCat-Video",
+            local_dir=str(base_model_dir),
+            local_dir_use_symlinks=False,
+        )
     if not (model_dir / "dit").exists():
         snapshot_download(
             "meituan-longcat/LongCat-Video-Avatar-1.5",
             local_dir=str(model_dir),
             local_dir_use_symlinks=False,
         )
-    print("model_dir contents:", [p.name for p in model_dir.iterdir()][:20], flush=True)
+    print("base_model_dir contents:", [p.name for p in base_model_dir.iterdir()][:20], flush=True)
+    print("avatar_model_dir contents:", [p.name for p in model_dir.iterdir()][:20], flush=True)
 
     cond_image = repo / "assets/jimsky/moon_two_astronauts_ref.jpeg"
     if not cond_image.exists():
