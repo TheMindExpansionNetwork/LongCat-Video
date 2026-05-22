@@ -53,7 +53,7 @@ image = (
 )
 def run_space_progress_avatar(
     run_id: str = "20260522T043346Z",
-    output_name: str = "space_progress_longcat_avatar_15",
+    output_name: str = "space_progress_longcat_avatar_15_attempt2",
 ) -> dict:
     import json
     import os
@@ -86,6 +86,15 @@ def run_space_progress_avatar(
             "meituan-longcat/LongCat-Video",
             local_dir=str(base_model_dir),
             local_dir_use_symlinks=False,
+            allow_patterns=[
+                "tokenizer/*",
+                "text_encoder/*",
+                "vae/*",
+                "scheduler/*",
+                "*.json",
+                "*.md",
+                "LICENSE",
+            ],
         )
     if not (model_dir / "dit").exists():
         snapshot_download(
