@@ -25,7 +25,7 @@ image = (
         "uv pip install --system av>=12.0.0 einops>=0.7.0 PyYAML>=6.0 sentencepiece>=0.1.99",
         "uv pip install --system transformers==4.57.1 'huggingface_hub[hf_transfer]>=0.25.0,<1.0' bitsandbytes>=0.46.0",
         "uv pip install --system soundfile>=0.12.0 'numpy<2.3' librosa>=0.10.2 datasets>=2.20.0 rich>=13.7.0",
-        "uv pip install --system diffusers>=0.33.0 flash-attn==2.7.4.post1",
+        "uv pip install --system --no-build-isolation flash-attn==2.7.4.post1",
         "uv pip install git+https://github.com/resemble-ai/Perth.git@master",
     )
     .env({
